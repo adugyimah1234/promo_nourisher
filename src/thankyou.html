@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Thank You for Participating!</title>
+    <style>
+        /* Modern styles for the Thank You page */
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+        .thank-you-message {
+            margin-top: 50px;
+            color: #333;
+            font-size: 32px;
+            font-weight: bold;
+        }
+        .countdown {
+            margin-top: 30px;
+            font-size: 24px;
+            color: #555;
+        }
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+        .social-buttons a {
+            text-decoration: none;
+            margin: 0 10px;
+            transition: transform 0.3s ease-in-out;
+        }
+        .social-buttons a img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .social-buttons a:hover {
+            transform: translateY(-5px);
+        }
+        .next-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        .next-button:hover {
+            background-color: #45a049;
+        }
+        /* Styles for the modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+            border-radius: 5px;
+        }
+        .next-button[disabled] {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="thank-you-message">Thank You for Participating!</div>
+
+    <div class="countdown">
+        <p>Another Countdown for Future Events:</p>
+        <p id="countdownTimer"></p>
+    </div>
+
+    <div class="social-buttons">
+        <a href="https://www.instagram.com/nourisher_foods/" target="_blank"><img src="instagram_icon.png" alt="Instagram"></a>
+        <a href="https://www.facebook.com/NourisherFoodsGH" target="_blank"><img src="facebook_icon.png" alt="Facebook"></a>
+        <a href="https://twitter.com/Nourisher_Ghana" target="_blank"><img src="twitter_icon.png" alt="Twitter"></a>
+        <a href="https://www.linkedin.com/in/nourisher-foods-ghana-a182a1281/" target="_blank"><img src="linkedin_icon.png" alt="LinkedIn"></a>
+    </div>
+
+
+    <div id="congratsModal" class="modal">
+        <div class="modal-content">
+            <span id="closeModal" onclick="closeCongratsModal()" style="float: right; cursor: pointer;">&times;</span>
+            <h2>Congratulations!</h2>
+            <p>You have been entered into the promo program for a chance to win!</p>
+            <div class="countdown">
+                <p>Countdown:</p>
+                <p id="modalCountdownTimer"></p>
+            </div>
+        </div>
+    </div>
+    <button class="next-button" onclick="showCongratsModal()" id="nextBtn" disabled>Next</button>
+
+    <script>
+        // Countdown timer
+        const countdownDate = new Date('2023-12-22T12:30:00').getTime();
+
+        const countdown = setInterval(function () {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('countdownTimer').innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+            if (distance < 0) {
+                clearInterval(countdown);
+                document.getElementById('countdownTimer').innerHTML = "EXPIRED";
+            }
+        }, 1000);
+        document.getElementById('countdownTimer').style.fontWeight = 'bold';
+        document.getElementById('countdownTimer').style.color = '#ff4500'; 
+       
+        function handleSocialMediaClick() {
+            document.getElementById('nextBtn').removeAttribute('disabled');
+        }
+
+        // Add event listeners to social media links to enable the Next button on click
+        const socialMediaLinks = document.querySelectorAll('.social-buttons a');
+        socialMediaLinks.forEach(link => {
+            link.addEventListener('click', handleSocialMediaClick);
+        });
+        function showCongratsModal() {
+            document.getElementById('congratsModal').style.display = 'block';
+            const modalCountdown = setInterval(function () {
+                const now = new Date().getTime();
+                const distance = countdownDate - now;
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById('modalCountdownTimer').innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+                if (distance < 0) {
+                    clearInterval(modalCountdown);
+                    document.getElementById('modalCountdownTimer').innerHTML = "EXPIRED";
+                }
+            }, 1000);
+        }
+
+        function closeCongratsModal() {
+            document.getElementById('congratsModal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
