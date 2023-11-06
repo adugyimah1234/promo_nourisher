@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Promo Landing Page</title>
     <style>
@@ -13,6 +14,7 @@
             align-items: center;
             background-color: #f4f4f4;
         }
+
         form {
             background-color: #fff;
             padding: 20px;
@@ -22,6 +24,7 @@
             width: 100%;
             margin-top: 50px;
         }
+
         input[type="text"],
         input[type="email"],
         input[type="tel"] {
@@ -31,6 +34,7 @@
             border: 1px solid #ccc;
             border-radius: 4px;
         }
+
         input[type="submit"] {
             width: 100%;
             padding: 10px;
@@ -41,9 +45,11 @@
             color: white;
             cursor: pointer;
         }
+
         input[type="submit"]:hover {
             background-color: #45a049;
         }
+
         .advertisement {
             display: flex;
             flex-wrap: wrap;
@@ -51,11 +57,14 @@
             width: 80%;
             margin-top: 30px;
         }
+
         .advertisement img,
         .advertisement video {
-            width: 45%; /* Adjust the size of the frames */
+            width: 45%;
+            /* Adjust the size of the frames */
             margin-bottom: 20px;
         }
+
         .countdown {
             margin-top: 30px;
             font-size: 36px;
@@ -68,13 +77,13 @@
         }
     </style>
 </head>
+
 <body>
     <div class="countdown">
         <p style="font-size: 24px; margin-bottom: 10px;">Countdown to December 22, 2023 12:30 PM:</p>
         <p id="countdownTimer"></p>
     </div>
-    <form id="promoForm" onsubmit="return validateForm()">
-        <h2>Promo Registration</h2>
+    <form id="promoForm" onsubmit="return submitForm(event)">
         <input type="text" id="name" placeholder="Your Name" required><br>
         <input type="email" id="email" placeholder="Your Email" required><br>
         <input type="tel" id="phone" placeholder="Your Phone Number" required><br>
@@ -82,50 +91,7 @@
         <input type="submit" value="Submit">
     </form>
 
-    <div class="advertisement">
-        <img src="https://via.placeholder.com/500x200.png" alt="Banner Advertisement">
-        <img src="https://via.placeholder.com/500x200.png" alt="Banner Advertisement">
-        <video controls>
-            <source src="https://www.sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <video controls>
-            <source src="https://www.sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </div>
-
-
-
     <script>
-            function validateForm() {
-    let name = document.getElementById('name').value;
-    let email = document.getElementById('email').value;
-    let phone = document.getElementById('phone').value;
-    let location = document.getElementById('location').value;
-
-    // Basic validation
-    if (name.trim() === '' || email.trim() === '' || phone.trim() === '' || location.trim() === '') {
-        alert("Please fill in all fields.");
-        return false;
-    }
-
-    // Email validation
-    let emailRegex = /\S+@\S+\.\S+/;
-    if (!emailRegex.test(email)) {
-        alert("Please enter a valid email address.");
-        return false;
-    }
-
-    // Phone number validation - Example: 10 digits
-    let phoneRegex = /^\d{10}$/;
-    if (!phoneRegex.test(phone)) {
-        alert("Please enter a valid 10-digit phone number.");
-        return false;
-    }
-    
-    return true;
-
         // Countdown timer
         const countdownDate = new Date('2023-12-22T12:30:00').getTime();
 
@@ -145,8 +111,64 @@
                 document.getElementById('countdownTimer').innerHTML = "EXPIRED";
             }
         }, 1000);
-        document.getElementById('countdownTimer').style.fontWeight = 'bold';
-        document.getElementById('countdownTimer').style.color = '#ff4500'; 
+
+        // Form submission handling
+        function submitForm(event) {
+            event.preventDefault(); // Prevent the form from submitting traditionally
+
+            // Basic validation
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const location = document.getElementById('location').value;
+
+            if (name.trim() === '' || email.trim() === '' || phone.trim() === '' || location.trim() === '') {
+                alert("Please fill in all fields.");
+                return false;
+            }
+
+            // Email validation
+            let emailRegex = /\S+@\S+\.\S+/;
+            if (!emailRegex.test(email)) {
+                alert("Please enter a valid email address.");
+                return false;
+            }
+
+            // Phone number validation - Example: 10 digits
+            let phoneRegex = /^\d{10}$/;
+            if (!phoneRegex.test(phone)) {
+                alert("Please enter a valid 10-digit phone number.");
+                return false;
+            }
+
+            // Example: sending a POST request to the server endpoint
+            fetch('/submit-form', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    location: location
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = 'thankyou.html'; // Redirect to the thank you page
+                } else {
+                    alert('Failed to submit form');
+                }
+            })
+            .catch(error => {
+                console.error('Error submitting form:', error);
+                alert('Failed to submit form');
+            });
+
+            return false; // Prevents the form from submitting traditionally
+        }
     </script>
 </body>
+
 </html>
