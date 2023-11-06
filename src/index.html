@@ -3,79 +3,7 @@
 
 <head>
     <title>Promo Landing Page</title>
-    <style>
-        /* Basic styling for the form */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: #f4f4f4;
-        }
-
-        form {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
-            width: 100%;
-            margin-top: 50px;
-        }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="tel"] {
-            width: calc(100% - 20px);
-            padding: 10px;
-            margin: 8px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        input[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            margin: 8px 0;
-            border: none;
-            border-radius: 4px;
-            background-color: #4CAF50;
-            color: white;
-            cursor: pointer;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #45a049;
-        }
-
-        .advertisement {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            width: 80%;
-            margin-top: 30px;
-        }
-
-        .advertisement img,
-        .advertisement video {
-            width: 45%;
-            /* Adjust the size of the frames */
-            margin-bottom: 20px;
-        }
-
-        .countdown {
-            margin-top: 30px;
-            font-size: 36px;
-            text-align: center;
-            color: #333;
-            background-color: #44a2e4;
-            padding: 20px;
-            border-radius: 18px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-    </style>
+      <link href = "style.css" rel = "stylesheet">
 </head>
 
 <body>
@@ -111,9 +39,8 @@
                 document.getElementById('countdownTimer').innerHTML = "EXPIRED";
             }
         }, 1000);
-
-        // Form submission handling
-        function submitForm(event) {
+                // Form submission handling
+                function submitForm(event) {
             event.preventDefault(); // Prevent the form from submitting traditionally
 
             // Basic validation
@@ -168,7 +95,7 @@
 
             return false; // Prevents the form from submitting traditionally
         }
-    </script>
+</script>
 </body>
 
 </html>
